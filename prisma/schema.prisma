@@ -1,0 +1,26 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+model MessageContent {
+  id        String   @id
+  content   String
+  ign   String?
+  mostValuable   String? @map(name: "most_valuable")
+  askingPrice   Float? @map(name: "asking_price")
+  timestamp DateTime
+  authorId String @map(name: "author_id")
+  authorName String @map(name: "author_name")
+  authorNickname String @map(name: "author_nickname")
+  isBot Boolean @default(false)
+  createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
+
+}
