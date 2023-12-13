@@ -85,8 +85,8 @@ export class MessagesService {
           gte: fromDate,
         },
         askingPrice: {
-          lte: priceTo,
-          gte: priceFrom,
+          lte: +priceTo,
+          gte: +priceFrom,
         },
       },
       orderBy: {
