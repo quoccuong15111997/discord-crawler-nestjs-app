@@ -50,6 +50,7 @@ export class MessagesService {
     ign: string = '',
     priceFrom: number = 0,
     priceTo: number = 200,
+    ischeck: boolean = false,
   ) {
     const skip = (page - 1) * pageSize;
     const data = await this.prisma.messageContent.findMany({
@@ -80,9 +81,16 @@ export class MessagesService {
               },
             }
           : {}),
+        ...(ischeck
+          ? {
+              usedBy: {
+                not: '',
+              },
+            }
+          : {}),
         timestamp: {
-          lte: toDate,
-          gte: fromDate,
+          lte: new Date(toDate),
+          gte: new Date(fromDate),
         },
         askingPrice: {
           lte: +priceTo,
@@ -95,11 +103,21 @@ export class MessagesService {
     });
     return data;
   }
-  findOne(id: number) {
-    return `This action returns a #${id} message`;
+  findOne(id: string) {
+    return this.prisma.messageContent.findUnique({ where: { id } });
   }
 
-  update(id: number, updateMessageDto: UpdateMessageDto) {
+  async update(id: string, updateMessageDto: UpdateMessageDto) {
+    try {
+      return this.prisma.messageContent.update({
+        where: {
+          id,
+        },
+        data: updateMessageDto,
+      });
+    } catch (error) {
+      return error;
+    }
     return `This action updates a #${id} message`;
   }
 
