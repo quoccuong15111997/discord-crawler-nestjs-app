@@ -11,4 +11,6 @@ export class CreateMessageDto {
   authorName: string;
   authorNickname: string;
   isBot: boolean;
+  usedBy?: string;
+  pmLogs?: string;
 }

@@ -21,6 +21,7 @@ model MessageContent {
   authorNickname String @map(name: "author_nickname")
   isBot Boolean @default(false)
   usedBy String @default("") @map(name: "used_by")
+  pmLogs String? @default("") @map(name: "pm_logs")
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
 
