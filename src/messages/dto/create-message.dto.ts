@@ -13,4 +13,6 @@ export class CreateMessageDto {
   isBot: boolean;
   usedBy?: string;
   pmLogs?: string;
+  valuePrice?: string;
+  attachment?: string;
 }
