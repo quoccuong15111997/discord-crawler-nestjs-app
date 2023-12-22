@@ -53,7 +53,6 @@ export class MessagesController {
       ign,
       priceFrom,
       priceTo,
-      ischeck,
       channelId,
     );
   }

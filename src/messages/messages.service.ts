@@ -51,7 +51,6 @@ export class MessagesService {
     ign: string = '',
     priceFrom: number = 0,
     priceTo: number = 200,
-    ischeck: boolean = false,
     channelId: string = '',
   ) {
     const skip = (page - 1) * pageSize;
@@ -88,13 +87,6 @@ export class MessagesService {
               ign: {
                 contains: ign,
                 mode: 'insensitive',
-              },
-            }
-          : {}),
-        ...(ischeck
-          ? {
-              usedBy: {
-                not: '',
               },
             }
           : {}),
