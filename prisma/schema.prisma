@@ -25,8 +25,8 @@ model MessageContent {
   usedBy String @default("") @map(name: "used_by")
   pmLogs String? @default("") @map(name: "pm_logs")
   attachment String? @default("") @map(name: "attachment")
-  channelId   String? @default("") @map(name: "chanel_id")
-  channelName   String? @default("") @map(name: "chanel_name")
+  channelId   String? @default("") @map(name: "channel_id")
+  channelName   String? @default("") @map(name: "channel_name")
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
 

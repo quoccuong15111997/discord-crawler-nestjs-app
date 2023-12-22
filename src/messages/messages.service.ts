@@ -9,7 +9,8 @@ import { timestamp } from 'rxjs';
 export class MessagesService {
   constructor(private prisma: PrismaService) {}
   async create(createMessageDto: CreateMessageDto) {
-    // console.log(createMessageDto);
+    console.log(createMessageDto);
+    console.log(createMessageDto);
     var check = await this.prisma.messageContent.findUnique({
       where: {
         id: createMessageDto.id,
