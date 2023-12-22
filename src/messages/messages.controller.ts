@@ -41,6 +41,7 @@ export class MessagesController {
     @Query('priceFrom') priceFrom: number = 0,
     @Query('priceTo') priceTo: number = 200,
     @Query('ischeck') ischeck: boolean = false,
+    @Query('channelId') channelId: string = '',
   ) {
     return this.messagesService.search(
       page,
@@ -53,6 +54,7 @@ export class MessagesController {
       priceFrom,
       priceTo,
       ischeck,
+      channelId,
     );
   }
   @Get(':id')

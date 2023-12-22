@@ -15,4 +15,6 @@ export class CreateMessageDto {
   pmLogs?: string;
   valuePrice?: string;
   attachment?: string;
+  channelId?: string;
+  channelName?: string;
 }

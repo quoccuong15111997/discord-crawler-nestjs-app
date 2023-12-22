@@ -51,12 +51,21 @@ export class MessagesService {
     priceFrom: number = 0,
     priceTo: number = 200,
     ischeck: boolean = false,
+    channelId: string = '',
   ) {
     const skip = (page - 1) * pageSize;
     const data = await this.prisma.messageContent.findMany({
       skip,
       take: +pageSize,
       where: {
+        ...(channelId != ''
+          ? {
+              chanelId: {
+                contains: channelId,
+                mode: 'insensitive',
+              },
+            }
+          : {}),
         ...(content != ''
           ? {
               content: {

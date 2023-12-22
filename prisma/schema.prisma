@@ -16,6 +16,7 @@ model MessageContent {
   mostValuable   String? @map(name: "most_valuable")
   askingPrice   Float? @map(name: "asking_price")
   valuePrice   String? @default("") @map(name: "value_price")
+  
   timestamp DateTime
   authorId String @map(name: "author_id")
   authorName String @map(name: "author_name")
@@ -24,6 +25,8 @@ model MessageContent {
   usedBy String @default("") @map(name: "used_by")
   pmLogs String? @default("") @map(name: "pm_logs")
   attachment String? @default("") @map(name: "attachment")
+  channelId   String? @default("") @map(name: "chanel_id")
+  channelName   String? @default("") @map(name: "chanel_name")
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
 
