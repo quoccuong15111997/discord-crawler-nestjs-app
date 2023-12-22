@@ -60,7 +60,7 @@ export class MessagesService {
       where: {
         ...(channelId != ''
           ? {
-              chanelId: {
+              channelId: {
                 contains: channelId,
                 mode: 'insensitive',
               },
