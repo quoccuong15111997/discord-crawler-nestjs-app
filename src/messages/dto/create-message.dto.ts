@@ -11,10 +11,12 @@ export class CreateMessageDto {
   authorName: string;
   authorNickname: string;
   isBot: boolean;
+  isEvaluate?: boolean;
   usedBy?: string;
   pmLogs?: string;
   valuePrice?: string;
   attachment?: string;
   channelId?: string;
   channelName?: string;
+  evaluateResult?: string;
 }

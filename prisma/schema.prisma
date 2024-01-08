@@ -16,7 +16,6 @@ model MessageContent {
   mostValuable   String? @map(name: "most_valuable")
   askingPrice   Float? @map(name: "asking_price")
   valuePrice   String? @default("") @map(name: "value_price")
-  
   timestamp DateTime
   authorId String @map(name: "author_id")
   authorName String @map(name: "author_name")
@@ -27,7 +26,42 @@ model MessageContent {
   attachment String? @default("") @map(name: "attachment")
   channelId   String? @default("") @map(name: "channel_id")
   channelName   String? @default("") @map(name: "channel_name")
+  isEvaluate  Boolean? @default(false) @map(name: "is_evaluate")
+   isValid  Boolean? @default(false) @map(name: "is_valid")
+  evaluateResult  String? @default("") @map(name: "evaluate_result")
+  stashItem StashItem[] 
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
 
+}
+model User {
+  id               Int               @id @default(autoincrement())
+  refreshToken     String?
+  username         String            @unique
+  email            String            @unique
+  password         String
+  name             String
+  phone            String?
+  image            String?
+  note            String?
+  address            String?
+  role             String            @default("user")
+}
+model PoeItem {
+   id               Int               @id @default(autoincrement())
+  type             String?          @default("Essence")
+   name             String
+   price   Float? @map(name: "price") @default(0)
+   createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
+}
+model StashItem {
+   id               Int               @id @default(autoincrement())
+   messageContentId String? @map(name: "message_content_id")
+   messageContent MessageContent? @relation(fields: [messageContentId], references: [id])
+    name             String
+    price   Float? @map(name: "price") @default(0)
+    quantity   Int? @map(name: "quantity") @default(0)
+    createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
 }

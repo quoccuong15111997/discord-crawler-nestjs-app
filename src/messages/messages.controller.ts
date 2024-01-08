@@ -12,6 +12,8 @@ import { MessagesService } from './messages.service';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
 import { CreateMessagesDto } from './dto/create-messages.dto';
+import { UpdateStashItemDto } from 'src/stash_item/dto/update-stash_item.dto';
+import { UpdateMessageStashItemDto } from './dto/update-message-stash-item.dto';
 
 @Controller('messages')
 export class MessagesController {
@@ -64,6 +66,10 @@ export class MessagesController {
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateMessageDto: UpdateMessageDto) {
     return this.messagesService.update(id, updateMessageDto);
+  }
+  @Post('update-stash')
+  updateStashItem(@Body() updateMessageDto: UpdateMessageStashItemDto) {
+    return this.messagesService.updateStashItem(updateMessageDto);
   }
 
   @Delete(':id')

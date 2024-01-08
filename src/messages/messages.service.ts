@@ -4,6 +4,7 @@ import { UpdateMessageDto } from './dto/update-message.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateMessagesDto } from './dto/create-messages.dto';
 import { timestamp } from 'rxjs';
+import { UpdateMessageStashItemDto } from './dto/update-message-stash-item.dto';
 
 @Injectable()
 export class MessagesService {
@@ -102,13 +103,59 @@ export class MessagesService {
       orderBy: {
         timestamp: 'desc',
       },
+      select: {
+        id: true,
+        content: true,
+        askingPrice: true,
+        mostValuable: true,
+        ign: true,
+        channelId: true,
+        timestamp: true,
+        stashItem: true,
+        usedBy: true,
+        pmLogs: true,
+        attachment: true,
+        channelName: true,
+        isEvaluate: true,
+        valuePrice: true,
+        evaluateResult: true,
+        isValid: true,
+      },
     });
     return data;
   }
   findOne(id: string) {
-    return this.prisma.messageContent.findUnique({ where: { id } });
+    return this.prisma.messageContent.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        content: true,
+        askingPrice: true,
+        mostValuable: true,
+        ign: true,
+        channelId: true,
+        timestamp: true,
+        stashItem: true,
+      },
+    });
   }
-
+  async updateStashItem(updateMessageDto: UpdateMessageStashItemDto) {
+    try {
+      await this.prisma.stashItem.createMany({ data: updateMessageDto.items });
+      return await this.prisma.messageContent.update({
+        where: {
+          id: updateMessageDto.id,
+        },
+        data: {
+          isValid: updateMessageDto.isEvaluate,
+          isEvaluate: true,
+          evaluateResult: updateMessageDto.evaluateResult,
+        },
+      });
+    } catch (error) {
+      return error;
+    }
+  }
   async update(id: string, updateMessageDto: UpdateMessageDto) {
     try {
       return this.prisma.messageContent.update({
