@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { UpdateItemByNameDto } from './dto/update-item-by-name.dto';
 
 @Injectable()
 export class ItemsService {
@@ -22,6 +23,10 @@ export class ItemsService {
         id: true,
         name: true,
         price: true,
+        updatedAt: true,
+      },
+      orderBy: {
+        id: 'asc',
       },
     });
   }
@@ -41,7 +46,27 @@ export class ItemsService {
       data: updateItemDto,
     });
   }
-
+  async updateItemByName(updateItemByNameDto: UpdateItemByNameDto) {
+    var itemCheck = await this.prisma.poeItem.findMany({
+      where: {
+        name: updateItemByNameDto.name,
+      },
+    });
+    if (itemCheck.length == 0) {
+      return this.prisma.poeItem.create({
+        data: updateItemByNameDto,
+      });
+    } else {
+      itemCheck[0].price = updateItemByNameDto.price;
+      itemCheck[0].updatedAt = updateItemByNameDto.date;
+      return this.prisma.poeItem.update({
+        where: {
+          id: itemCheck[0].id,
+        },
+        data: itemCheck[0],
+      });
+    }
+  }
   remove(id: number) {
     return this.prisma.poeItem.delete({ where: { id: id } });
   }

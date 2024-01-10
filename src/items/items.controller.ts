@@ -11,6 +11,7 @@ import {
 import { ItemsService } from './items.service';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
+import { UpdateItemByNameDto } from './dto/update-item-by-name.dto';
 
 @Controller('items')
 export class ItemsController {
@@ -29,6 +30,10 @@ export class ItemsController {
   findByType(@Query('type') type: string = 'Essence') {
     console.log(type);
     return this.itemsService.findByType(type);
+  }
+  @Post('update-by-name')
+  updateByName(@Body() updateItemByNameDto: UpdateItemByNameDto) {
+    return this.itemsService.updateItemByName(updateItemByNameDto);
   }
   @Get(':id')
   findOne(@Param('id') id: string) {
